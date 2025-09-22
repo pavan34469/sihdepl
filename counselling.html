@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Counselling & Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--primary:#3457a8;
+--secondary:#0b2545;
+--accent:#ff6b6b;
+--bg:#f7f9ff;
+--card-bg:#fff;
+--radius:12px;
+--gap:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--secondary);}
+header{
+background: linear-gradient(90deg,var(--primary),#274b9a);
+color:#fff;padding:22px 20px;display:flex;justify-content:space-between;align-items:center;
+border-radius:var(--radius);max-width:1200px;margin:10px auto;box-shadow:0 10px 25px rgba(0,0,0,0.12);}
+header h1{font-weight:700;font-size:1.3rem;}
+header .sub{font-weight:400;font-size:0.95rem;margin-top:4px;opacity:0.9;}
+.language-selector select{padding:6px 12px;border-radius:8px;border:none;font-weight:700;cursor:pointer;}
+.container{max-width:1200px;margin:30px auto;padding:0 18px;}
+h2{text-align:center;color:var(--secondary);margin-bottom:20px;}
+.filters{display:flex;gap:12px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.filters select{padding:10px 14px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);font-size:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--gap);}
+.card{background:var(--card-bg);border-radius:var(--radius);padding:18px;box-shadow:0 8px 20px rgba(0,0,0,0.08);display:flex;flex-direction:column;transition:transform 0.25s ease,box-shadow 0.25s ease;}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 45px rgba(0,0,0,0.12);}
+.card h3{color:var(--secondary);margin-bottom:6px;}
+.card p{margin-bottom:6px;color:#122433;font-size:0.95rem;}
+.card .specs{font-weight:600;color:var(--primary);}
+.card .availability{font-weight:700;padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:10px;font-size:0.85rem;}
+.avail-online{background:rgba(52,87,168,0.1);color:var(--primary);}
+.avail-offline{background:rgba(255,107,107,0.1);color:var(--accent);}
+.card button{padding:10px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:background 0.2s ease;}
+.card button:hover{background:#274b9a;}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;}
+.modal-content{background:#fff;padding:24px;border-radius:12px;max-width:500px;width:90%;position:relative;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+.modal-content h3{margin-bottom:12px;}
+.close-btn{position:absolute;top:12px;right:12px;background:var(--accent);color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;}
+.booking-form label{display:block;margin:10px 0 4px;font-weight:600;}
+.booking-form input, .booking-form select{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;margin-bottom:12px;font-size:1rem;}
+.booking-form button{width:100%;background:var(--primary);color:#fff;font-weight:700;padding:12px;border:none;border-radius:8px;cursor:pointer;}
+.booking-form button:hover{background:#274b9a;}
+@media(max-width:760px){header{flex-direction:column;align-items:flex-start;gap:10px;} .filters{flex-direction:column;align-items:center;}}
+</style>
+</head>
+<body>
+
+<header>
+<div>
+<h1 id="page-title">Doctor Counselling & Booking — Jammu & Kashmir</h1>
+<div class="sub" id="page-sub">Find and book appointments with specialized doctors</div>
+</div>
+<div class="language-selector">
+<select id="language-select">
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="ur">Urdu</option>
+<option value="ks">Kashmiri</option>
+</select>
+</div>
+</header>
+
+<div class="container">
+<h2 id="filter-title">Filter Doctors</h2>
+<div class="filters">
+<select id="specialization-filter"><option value="all">All Specializations</option></select>
+<select id="location-filter"><option value="all">All Locations</option></select>
+</div>
+<div class="grid" id="doctor-grid"></div>
+</div>
+
+<div class="modal" id="booking-modal">
+<div class="modal-content">
+<button class="close-btn" id="close-modal">X</button>
+<h3 id="modal-title">Book Appointment</h3>
+<form class="booking-form" id="booking-form">
+<label for="patient-name" data-i18n="label-name">Your Name</label>
+<input type="text" id="patient-name" required>
+<label for="patient-contact" data-i18n="label-contact">Contact Number</label>
+<input type="tel" id="patient-contact" required>
+<label for="appointment-type" data-i18n="label-type">Appointment Type</label>
+<select id="appointment-type" required>
+<option value="online" data-i18n="online">Online</option>
+<option value="offline" data-i18n="offline">Offline</option>
+</select>
+<label for="appointment-date" data-i18n="label-date">Preferred Date</label>
+<input type="date" id="appointment-date" required>
+<button type="submit" id="book-button" data-i18n="book-now">Confirm Booking</button>
+</form>
+</div>
+</div>
+
+<script>
+const translations={
+en:{
+"page-title":"Doctor Counselling & Booking — Jammu & Kashmir",
+"page-sub":"Find and book appointments with specialized doctors",
+"filter-title":"Filter Doctors",
+"label-name":"Your Name",
+"label-contact":"Contact Number",
+"label-type":"Appointment Type",
+"label-date":"Preferred Date",
+"online":"Online",
+"offline":"Offline",
+"book-now":"Confirm Booking",
+doctors:[
+{name:"Dr. Ayesha Khan",location:"Srinagar",specialization:"Psychiatrist",experience:"10 years"},
+{name:"Dr. Imran Malik",location:"Jammu",specialization:"Clinical Psychologist",experience:"8 years"},
+{name:"Dr. Sara Bhat",location:"Srinagar",specialization:"Therapist",experience:"5 years"},
+{name:"Dr. Faizan Raina",location:"Anantnag",specialization:"Psychiatrist",experience:"12 years"},
+{name:"Dr. Nida Wani",location:"Jammu",specialization:"Counsellor",experience:"6 years"},
+{name:"Dr. Danish Sheikh",location:"Srinagar",specialization:"Clinical Psychologist",experience:"9 years"}
+]
+},
+hi:{
+"page-title":"डॉक्टर काउंसलिंग और बुकिंग — जम्मू और कश्मीर",
+"page-sub":"विशेषज्ञ डॉक्टरों के साथ अपॉइंटमेंट बुक करें",
+"filter-title":"डॉक्टर फ़िल्टर करें",
+"label-name":"आपका नाम",
+"label-contact":"संपर्क नंबर",
+"label-type":"अपॉइंटमेंट प्रकार",
+"label-date":"पसंदीदा दिनांक",
+"online":"ऑनलाइन",
+"offline":"ऑफ़लाइन",
+"book-now":"बुक करें",
+doctors:[
+{name:"डॉ. आयशा खान",location:"श्रीनगर",specialization:"मनोचिकित्सक",experience:"10 साल"},
+{name:"डॉ. इमरान मलिक",location:"जम्मू",specialization:"क्लिनिकल साइकोलॉजिस्ट",experience:"8 साल"},
+{name:"डॉ. सारा भट",location:"श्रीनगर",specialization:"थेरेपिस्ट",experience:"5 साल"},
+{name:"डॉ. फैजान रैना",location:"अनंतनाग",specialization:"मनोचिकित्सक",experience:"12 साल"},
+{name:"डॉ. नीदा वानी",location:"जम्मू",specialization:"काउंसलर",experience:"6 साल"},
+{name:"डॉ. डैनिश शेख",location:"श्रीनगर",specialization:"क्लिनिकल साइकोलॉजिस्ट",experience:"9 साल"}
+]
+},
+ur:{
+"page-title":"ڈاکٹر کونسلنگ اور بکنگ — جموں و کشمیر",
+"page-sub":"ماہر ڈاکٹروں کے ساتھ اپائنٹمنٹ بُک کریں",
+"filter-title":"ڈاکٹر فلٹر کریں",
+"label-name":"آپ کا نام",
+"label-contact":"رابطہ نمبر",
+"label-type":"اپائنٹمنٹ کی قسم",
+"label-date":"ترجیحی تاریخ",
+"online":"آن لائن",
+"offline":"آف لائن",
+"book-now":"بک کریں",
+doctors:[
+{name:"ڈاکٹر عائشہ خان",location:"سری نگر",specialization:"ماہر نفسیات",experience:"10 سال"},
+{name:"ڈاکٹر عمران ملک",location:"جموں",specialization:"کلینیکل سائیکولوجسٹ",experience:"8 سال"},
+{name:"ڈاکٹر سارا بھٹ",location:"سری نگر",specialization:"تھراپسٹ",experience:"5 سال"},
+{name:"ڈاکٹر فیضان رائنا",location:"اننت ناگ",specialization:"ماہر نفسیات",experience:"12 سال"},
+{name:"ڈاکٹر نیدا وانی",location:"جموں",specialization:"کاؤنسلر",experience:"6 سال"},
+{name:"ڈاکٹر دانش شیخ",location:"سری نگر",specialization:"کلینیکل سائیکولوجسٹ",experience:"9 سال"}
+]
+},
+ks:{
+"page-title":"ڈاکٹر کونسلنگ اینڈ بکنگ — جموں اینڈ کشمیر",
+"page-sub":"ماہر ڈاکٹروں کے ساتھ اپائنٹمنٹ بک کریں",
+"filter-title":"ڈاکٹر فلٹر کریں",
+"label-name":"تھَو نام",
+"label-contact":"رابطہ نمبر",
+"label-type":"اپوائنٹمنٹ قسم",
+"label-date":"ترجیحی تاریخ",
+"online":"آن لائن",
+"offline":"آف لائن",
+"book-now":"بک کریں",
+doctors:[
+{name:"ڈاکٹر عائشہ خان",location:"سری نگر",specialization:"ماہر نفسیات",experience:"10 سال"},
+{name:"ڈاکٹر عمران ملک",location:"جموں",specialization:"کلینیکل سائیکولوجسٹ",experience:"8 سال"},
+{name:"ڈاکٹر سارا بھٹ",location:"سری نگر",specialization:"تھراپسٹ",experience:"5 سال"},
+{name:"ڈاکٹر فیضان رائنا",location:"اننت ناگ",specialization:"ماہر نفسیات",experience:"12 سال"},
+{name:"ڈاکٹر نیدا وانی",location:"جموں",specialization:"کاؤنسلر",experience:"6 سال"},
+{name:"ڈاکٹر دانش شیخ",location:"سری نگر",specialization:"کلینیکل سائیکولوجسٹ",experience:"9 سال"}
+]
+}
+};
+
+let currentLang='en';
+const pageTitle=document.getElementById('page-title');
+const pageSub=document.getElementById('page-sub');
+const filterTitle=document.getElementById('filter-title');
+const specFilter=document.getElementById('specialization-filter');
+const locFilter=document.getElementById('location-filter');
+const doctorGrid=document.getElementById('doctor-grid');
+const langSelect=document.getElementById('language-select');
+
+function renderFilters(doctors){
+specFilter.innerHTML=''; locFilter.innerHTML='';
+let specs=['all',...new Set(doctors.map(d=>d.specialization))];
+let locs=['all',...new Set(doctors.map(d=>d.location))];
+specs.forEach(s=>{let opt=document.createElement('option'); opt.value=s; opt.textContent=s; specFilter.appendChild(opt);});
+locs.forEach(l=>{let opt=document.createElement('option'); opt.value=l; opt.textContent=l; locFilter.appendChild(opt);});
+}
+
+function renderDoctors(){
+doctorGrid.innerHTML='';
+let doctorsList=translations[currentLang].doctors;
+let filtered=doctorsList.filter(d=>(specFilter.value==='all'||d.specialization===specFilter.value)&&(locFilter.value==='all'||d.location===locFilter.value));
+filtered.forEach(d=>{
+let card=document.createElement('div'); card.className='card';
+card.innerHTML=`<h3>${d.name}</h3>
+<p class="specs">${d.specialization} — ${d.experience}</p>
+<p>${d.location}</p>
+<div class="availability avail-online">${translations[currentLang].online}</div>
+<div class="availability avail-offline">${translations[currentLang].offline}</div>
+<button data-name="${d.name}">${translations[currentLang]['book-now']}</button>`;
+doctorGrid.appendChild(card);
+card.querySelector('button').addEventListener('click',()=>{
+document.getElementById('booking-modal').style.display='flex';
+document.getElementById('modal-title').textContent=`${translations[currentLang]['book-now']} — ${d.name}`;
+});
+});
+}
+
+// Translation function
+function translatePage(lang){
+currentLang=lang;
+pageTitle.textContent=translations[lang]['page-title'];
+pageSub.textContent=translations[lang]['page-sub'];
+filterTitle.textContent=translations[lang]['filter-title'];
+renderFilters(translations[lang].doctors);
+renderDoctors();
+}
+
+langSelect.addEventListener('change',e=>translatePage(e.target.value));
+specFilter.addEventListener('change',renderDoctors);
+locFilter.addEventListener('change',renderDoctors);
+
+document.getElementById('close-modal').addEventListener('click',()=>document.getElementById('booking-modal').style.display='none');
+window.addEventListener('click',e=>{if(e.target==document.getElementById('booking-modal'))document.getElementById('booking-modal').style.display='none';});
+document.getElementById('booking-form').addEventListener('submit',e=>{
+e.preventDefault();alert(translations[currentLang]['book-now']+" successful!");
+document.getElementById('booking-modal').style.display='none';
+document.getElementById('booking-form').reset();
+});
+
+translatePage('en'); // initial render
+</script>
+</body>
+</html>

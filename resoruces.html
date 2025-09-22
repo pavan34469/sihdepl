@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Psychological Intervention — J&K (Resources)</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0b2545;
+      --accent: #3457a8;
+      --muted: #556174;
+      --page-bg: linear-gradient(90deg,#eef2fb 0%, #f7f9ff 100%);
+      --card-bg: #fff;
+      --radius: 12px;
+      --gap: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--page-bg);
+      color:#0b1b2b;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Header */
+    header{
+      background: linear-gradient(90deg,var(--navy), #274b9a);
+      color: #fff;
+      padding: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      max-width:1200px;
+      margin:18px auto;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(10,18,40,0.12);
+    }
+    header-left{display:flex;flex-direction:column}
+    #site-title{font-family:"Merriweather", serif; font-weight:700; font-size:1.2rem; margin:0}
+    #site-sub{font-size:0.88rem; opacity:0.95; margin-top:6px}
+
+    /* Top controls */
+    .top-controls{display:flex;align-items:center;gap:10px}
+    .back-btn{
+      background:#fff;color:var(--navy);padding:8px 12px;border-radius:8px;border:0;font-weight:700;cursor:pointer;
+      box-shadow: 0 6px 14px rgba(9,20,45,0.08);
+    }
+    .lang-btns{display:flex;gap:8px; align-items:center}
+    .lang-btn{
+      background: transparent;
+      color: rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer;
+    }
+    .lang-btn.active{ background:#fff; color:var(--navy); border-color: transparent; }
+
+    /* Search */
+    .controls{
+      max-width:1200px; margin: 16px auto; display:flex; justify-content:center; padding:0 18px;
+    }
+    #search-bar{
+      width:100%; max-width:800px; padding:12px 14px; border-radius:10px; border:1px solid rgba(10,20,40,0.06);
+      font-size:1rem; box-shadow: 0 10px 26px rgba(9,20,45,0.04);
+    }
+
+    /* Main */
+    .wrapper{ max-width:1200px; margin: 20px auto 60px; padding: 0 18px; }
+    .section-title{ display:flex; align-items:center; gap:12px; margin: 18px 0; color: var(--navy); font-weight:800; letter-spacing:0.4px; font-size:1.05rem }
+    .grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gap); margin-top:12px; }
+
+    /* Card */
+    .card{
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding:14px;
+      box-shadow: 0 8px 30px rgba(12,20,40,0.06);
+      display:flex; flex-direction:column; transition: transform .18s, box-shadow .18s;
+      min-height: 420px;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 20px 45px rgba(12,20,40,0.09); }
+    .card h3{ margin:0 0 6px; font-size:1.05rem; color:var(--navy); font-weight:800 }
+    .meta{ display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+    .type{ background: rgba(52,87,168,0.06); color: var(--accent); padding:6px 10px; border-radius:999px; font-weight:700; font-size:0.85rem }
+
+    .video-wrap{ position:relative; margin-bottom:10px; }
+    iframe{ width:100%; height:190px; border-radius:8px; border:0; background:#000; display:block; }
+    .fallback{ display:none; border-radius:8px; overflow:hidden; background:linear-gradient(180deg,#0b2545,#274b9a); color:#fff; padding:8px; }
+    .fallback img{ width:100%; height:180px; object-fit:cover; border-radius:6px; display:block; }
+    .fallback .btns{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap }
+    .fallback a{ background:#fff; color:var(--navy); padding:8px 10px; border-radius:8px; text-decoration:none; font-weight:700; }
+
+    .text{ font-size:0.95rem; color:#122433; line-height:1.45; margin-top:8px; flex:1 }
+    .regional{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .regional a{ text-decoration:none; font-weight:700; font-size:0.86rem; color:var(--navy); border:1px solid rgba(10,20,40,0.06); padding:6px 10px; border-radius:8px; background:#fff }
+    .regional a.small{ font-weight:600; color:var(--muted); border:none; background:transparent }
+
+    footer{ max-width:1200px; margin:30px auto; text-align:center; color:var(--muted); font-weight:700; padding-bottom:30px }
+
+    @media (max-width:760px){
+      iframe{ height:160px }
+      header{ flex-direction:column; align-items:flex-start; gap:10px }
+      .card{ min-height:auto }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div id="site-title">Digital Psychological Intervention — J&K (Resources)</div>
+      <div id="site-sub" style="font-size:0.9rem;opacity:0.95">14 curated resources (10 Mental + 4 Physical) — videos & regional support</div>
+    </div>
+
+    <div class="top-controls">
+      <button id="backBtn" class="back-btn">← Back</button>
+
+      <div class="lang-btns" role="group" aria-label="Language switch">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हिंदी</button>
+        <button class="lang-btn" data-lang="ur">اردو</button>
+        <button class="lang-btn" data-lang="ks">کشمير</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <input id="search-bar" placeholder="Search (e.g. 'depression', 'stress', 'diabetes')" />
+  </div>
+
+  <main class="wrapper">
+    <div class="section-title" data-key="mentalTitle">🧠 Mental Health</div>
+    <div class="grid" id="mental-grid"></div>
+
+    <div class="section-title" data-key="physicalTitle" style="margin-top:26px">💪 Physical Health</div>
+    <div class="grid" id="physical-grid"></div>
+  </main>
+
+  <footer id="site-footer">Digital Psychological Intervention — Jammu & Kashmir © 2025</footer>
+
+<script>
+/*
+  Full translations and video data.
+  Each language block includes all 14 cards (10 mental + 4 physical) with:
+    - title
+    - videoId  (YouTube ID)
+    - awareness
+    - remedies
+  The renderer builds cards based on selected language and uses the videoId
+  to create embed iframe + thumbnail fallback that links to the watch page.
+*/
+
+const translations = {
+  en: {
+    siteTitle: "Digital Psychological Intervention — J&K (Resources)",
+    siteSub: "14 curated resources (10 Mental + 4 Physical) — videos & regional support",
+    backBtn: "← Back",
+    searchPlaceholder: "Search (e.g. 'depression', 'stress', 'diabetes')",
+    mentalTitle: "🧠 Mental Health",
+    physicalTitle: "💪 Physical Health",
+    footer: "Digital Psychological Intervention — Jammu & Kashmir © 2025",
+    cards: [
+      // 1
+      { type:"Mental", title:"Depression", videoId:"P7YGyuZxItY",
+        awareness:"Persistent sadness, loss of interest, things don't feel enjoyable.",
+        remedies:"Therapy, support networks, sometimes antidepressant medication, routine and regular physical activity." },
+
+      // 2
+      { type:"Mental", title:"Schizophrenia", videoId:"H2RXx-H80BU",
+        awareness:"Hallucinations, delusions, disorganized thinking and social withdrawal.",
+        remedies:"Antipsychotic medications, psychotherapy, family and community support." },
+
+      // 3
+      { type:"Mental", title:"Obsessive-Compulsive Disorder (OCD)", videoId:"4euYnqMWT5w",
+        awareness:"Intrusive unwanted thoughts (obsessions) and repetitive behaviors (compulsions).",
+        remedies:"Exposure and response prevention (ERP), CBT, SSRIs when prescribed." },
+
+      // 4
+      { type:"Mental", title:"Anxiety Disorder", videoId:"BHJJ6-cCPjM",
+        awareness:"Excessive worry, restlessness, muscle tension and sleep disturbance.",
+        remedies:"Breathing & relaxation techniques, CBT/mindfulness, short-term medication if necessary." },
+
+      // 5
+      { type:"Mental", title:"Post-Traumatic Stress Disorder (PTSD)", videoId:"tX8TgVR33KM",
+        awareness:"Flashbacks, nightmares, avoidance and hypervigilance after a traumatic event.",
+        remedies:"Trauma-focused therapies (EMDR, TF-CBT), support groups and stabilization techniques." },
+
+      // 6
+      { type:"Mental", title:"'Black Dog' — Depression Metaphor", videoId:"XiCrniLQGYc",
+        awareness:"A metaphor describing how depression can feel like a persistent companion.",
+        remedies:"Talk to someone, seek counseling, build routines and supportive relationships." },
+
+      // 7
+      { type:"Mental", title:"Hidden (High-Functioning) Depression", videoId:"1Yq6W7YAHM4",
+        awareness:"People may appear functional externally while struggling internally with depression.",
+        remedies:"Encourage check-ins, counselling and early support." },
+
+      // 8
+      { type:"Mental", title:"Living with Depression (Daily Impact)", videoId:"EJ_S5Rjt_iI",
+        awareness:"How depression affects everyday life, motivation and relationships.",
+        remedies:"Structured routines, therapy, social support and medical treatment when needed." },
+
+      // 9
+      { type:"Mental", title:"Schizophrenia Awareness", videoId:"k7bbTCSua8k",
+        awareness:"Understanding schizophrenia, signs and supporting affected persons.",
+        remedies:"Early treatment, psychosocial rehabilitation and reducing stigma." },
+
+      // 10
+      { type:"Mental", title:"What is Schizophrenia?", videoId:"H2RXx-H80BU",
+        awareness:"Overview of symptoms and early warning signs.",
+        remedies:"Seek psychiatric assessment early; follow recommended treatment plans." },
+
+      // Physical (4)
+      { type:"Physical", title:"Hypertension (High Blood Pressure)", videoId:"mjTMZ_sm0LQ",
+        awareness:"Stress and anxiety can raise blood pressure; many cases are asymptomatic.",
+        remedies:"Lifestyle (low-salt diet, exercise), stress management and antihypertensives if prescribed." },
+
+      { type:"Physical", title:"Coronary / Heart Disease", videoId:"SaS3kZVIrGk",
+        awareness:"Chest pain, breathlessness; stress and depression raise cardiac risk.",
+        remedies:"Risk-factor control (smoking, lipids, BP), medications and specialist care." },
+
+      { type:"Physical", title:"Type 2 Diabetes", videoId:"V-1bOCr2XK8",
+        awareness:"Frequent urination, thirst, fatigue; stress can worsen glucose control.",
+        remedies:"Dietary measures, exercise, glucose monitoring and medication when needed." },
+
+      { type:"Physical", title:"Migraine", videoId:"PiTrjxqflLk",
+        awareness:"Recurrent severe headaches often triggered by stress, light or sleep changes.",
+        remedies:"Acute medications (triptans), preventive therapy, trigger management and stress reduction." }
+    ]
+  },
+
+  /* HINDI translations */
+  hi: {
+    siteTitle: "डिजिटल मनोवैज्ञानिक हस्तक्षेप — जम्मू और कश्मीर (संसाधन)",
+    siteSub: "14 संसाधन (10 मानसिक + 4 शारीरिक) — वीडियो और क्षेत्रीय समर्थन",
+    backBtn: "← वापस",
+    searchPlaceholder: "खोजें (जैसे 'डिप्रेशन', 'स्ट्रेस', 'डायबिटीज')",
+    mentalTitle: "🧠 मानसिक स्वास्थ्य",
+    physicalTitle: "💪 शारीरिक स्वास्थ्य",
+    footer: "डिजिटल मनोवैज्ञानिक हस्तक्षेप — जम्मू और कश्मीर © 2025",
+    cards: [
+      { type:"मानसिक", title:"डिप्रेशन", videoId:"P7YGyuZxItY",
+        awareness:"लगातार उदासी, रुचि में कमी, चीजें आनंददायक नहीं लगना।",
+        remedies:"थेरेपी, समर्थन, कभी-कभी एंटीडप्रेसेंट दवाइयां, नियमित गतिविधि।" },
+
+      { type:"मानसिक", title:"स्किज़ोफ्रेनिया", videoId:"H2RXx-H80BU",
+        awareness:"हैलुसिनेशन, भ्रामक विचार, सोच में गड़बड़ी और सामाजिक अलगाव।",
+        remedies:"एंटिसाइकोटिक दवाएं, मनोचिकित्सा, पारिवारिक व सामाजिक समर्थन।" },
+
+      { type:"मानसिक", title:"ऑब्सेसिव-कम्पल्सिव डिसऑर्डर (OCD)", videoId:"4euYnqMWT5w",
+        awareness:"अनचाही विचार (ऑब्सेशन) और बार-बार किए जाने वाले व्यवहार (कम्पल्सन)।",
+        remedies:"ERP/CBT चिकित्सा, SSRIs जब आवश्यक हों।" },
+
+      { type:"मानसिक", title:"एंग्जायटी (चिंता विकार)", videoId:"BHJJ6-cCPjM",
+        awareness:"अत्यधिक चिंता, बेचैनी, मांसपेशियों में तनाव और नींद में बाधा।",
+        remedies:"साँस लेने की तकनीकें, माइंडफुलनेस/CBT, आवश्यकता पर दवा।" },
+
+      { type:"मानसिक", title:"पोस्ट-टraumatic स्ट्रेस (PTSD)", videoId:"tX8TgVR33KM",
+        awareness:"ट्रॉमा के बाद फ्लैशबैक, दुःस्वप्न, बचाव व अधिक सतर्कता।",
+        remedies:"ट्रॉमा-फोकस्ड थेरेपी (EMDR), समर्थन समूह और कौशल प्रशिक्षण।" },
+
+      { type:"मानसिक", title:"डिप्रेशन — 'ब्लैक डॉग' मेटाफर", videoId:"XiCrniLQGYc",
+        awareness:"डिप्रेशन को साथी के रूप में महसूस करने का मेटाफर।",
+        remedies:"मदद लें, बात करें, थेरेपी व दिनचर्या बनायें।" },
+
+      { type:"मानसिक", title:"छुपा हुआ (हाई-फंक्शनिंग) डिप्रेशन", videoId:"1Yq6W7YAHM4",
+        awareness:"बाहरी दिखावट सामान्य पर अंदर से संघर्ष।",
+        remedies:"जांच, काउंसलिंग और समय पर समर्थन।" },
+
+      { type:"मानसिक", title:"डिप्रेशन के साथ जीना", videoId:"EJ_S5Rjt_iI",
+        awareness:"रोजमर्रा की ज़िंदगी पर डिप्रेशन का प्रभाव।",
+        remedies:"नियमित दिनचर्या, सहायता और विशेषज्ञ देखभाल।" },
+
+      { type:"मानसिक", title:"स्किज़ोफ्रेनिया जागरूकता", videoId:"k7bbTCSua8k",
+        awareness:"स्किज़ोफ्रेनिया को समझना और प्रभावित लोगों का समर्थन।",
+        remedies:"जल्दी पहचान, इलाज व पुनर्वास।" },
+
+      { type:"मानसिक", title:"स्किज़ोफ्रेनिया क्या है?", videoId:"H2RXx-H80BU",
+        awareness:"लक्षण और शुरुआती संकेत।",
+        remedies:"जल्दी निदान और अनुशंसित उपचार।" },
+
+      { type:"शारीरिक", title:"हाइपरटेंशन (ऊँचा रक्तचाप)", videoId:"mjTMZ_sm0LQ",
+        awareness:"तनाव व चिंता रक्तचाप बढ़ा सकते हैं; कई मामले लक्षणरहित होते हैं।",
+        remedies:"नमक नियंत्रण, व्यायाम, तनाव प्रबंधन और दवा यदि आवश्यक।" },
+
+      { type:"शारीरिक", title:"हृदय रोग (कोरोनरी)", videoId:"SaS3kZVIrGk",
+        awareness:"सीधे दर्द, सांस फूलना; तनाव और अवसाद जोखिम बढ़ाते हैं।",
+        remedies:"जोखिम घटाने (धूम्रपान, कोलेस्ट्रॉल, BP), दवाइयां व विशेषज्ञ देखभाल।" },
+
+      { type:"शारीरिक", title:"प्रकार 2 मधुमेह", videoId:"V-1bOCr2XK8",
+        awareness:"अक्सर प्यास, बार-बार पेशाब, थकान; तनाव ब्लड-शुगर को प्रभावित कर सकता है।",
+        remedies:"आहार, व्यायाम, निगरानी और दवाइयां जब ज़रूरी हों।" },
+
+      { type:"शारीरिक", title:"माइग्रेन", videoId:"PiTrjxqflLk",
+        awareness:"तनाव ट्रिगर कर सकता है; तेज सिरदर्द, मतली, प्रकाश/ध्वनि से संवेदनशीलता।",
+        remedies:"तीव्र दवाइयाँ (ट्रिप्टान), रोकथाम, ट्रिगर प्रबंधन।" }
+    ]
+  },
+
+  /* URDU translations */
+  ur: {
+    siteTitle: "ڈیجیٹل نفسیاتی مداخلت — جموں و کشمیر (وسائل)",
+    siteSub: "14 منتخب وسائل (10 ذہنی + 4 جسمانی) — ویڈیوز اور علاقائی مدد",
+    backBtn: "← واپس",
+    searchPlaceholder: "تلاش کریں (مثلاً 'ڈپریشن', 'اسٹریس', 'ذیابیطس')",
+    mentalTitle: "🧠 ذہنی صحت",
+    physicalTitle: "💪 جسمانی صحت",
+    footer: "ڈیجیٹل نفسیاتی مداخلت — جموں و کشمیر © 2025",
+    cards: [
+      { type:"ذہنی", title:"ڈپریشن", videoId:"P7YGyuZxItY",
+        awareness:"مسلسل اداسی، دلچسپی میں کمی، چیزیں خوشگوار محسوس نہ ہونا۔",
+        remedies:"تھراپی، مددگار نیٹ ورکس، کبھی کبھی اینٹی ڈپریسنٹ ادویات، معمولی جسمانی سرگرمی۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا", videoId:"H2RXx-H80BU",
+        awareness:"حسی فریب (ہیلوسینیشن)، وہم، منظم سوچ میں خلل، سماجی تنہائی۔",
+        remedies:"اینٹی سائیکوٹک ادویات، نفسیاتی علاج، خاندانی اور سماجی تعاون۔" },
+
+      { type:"ذہنی", title:"وسواسی جبری خرابی (OCD)", videoId:"4euYnqMWT5w",
+        awareness:"دھکچوکھ (intrusive) خیالات اور بار بار کئے جانے والے اعمال۔",
+        remedies:"ERP/CBT، بعض اوقات دَوائیں (SSRIs)۔" },
+
+      { type:"ذہنی", title:"پریشانی (انزائٹی)", videoId:"BHJJ6-cCPjM",
+        awareness:"بہت زیادہ فکر، بے چینی، پٹھوں میں تناؤ اور نیند میں خلل۔",
+        remedies:"سانس لینے کی مشقیں، ذہنی سکون/CBT، ضرورت پر ادویات۔" },
+
+      { type:"ذہنی", title:"پی ٹی ایس ڈی (PTSD)", videoId:"tX8TgVR33KM",
+        awareness:"ٹراما کے بعد فلیش بیکس، ڈراؤنے خواب اور بچاؤ کی عادت۔",
+        remedies:"ٹراما مرکوز تھراپیز (EMDR/TF-CBT)، حمایت گروپس۔" },
+
+      { type:"ذہنی", title:"ڈپریشن — 'بلیک ڈاگ' استعارہ", videoId:"XiCrniLQGYc",
+        awareness:"ڈپریشن کو ایک مستقل ساتھی کی مانند محسوس کرنا۔",
+        remedies:"مدد تلاش کریں، گفتگو کریں، تھراپی اور معمول بنائیں۔" },
+
+      { type:"ذہنی", title:"چھپا ہوا ڈپریشن", videoId:"1Yq6W7YAHM4",
+        awareness:"بظاہر نارمل مگر اندر مداخلت یا تکلیف محسوس کرنا۔",
+        remedies:"چیک ان کروائیں، مشاورت حاصل کریں اور بروقت مدد لیں۔" },
+
+      { type:"ذہنی", title:"ڈپریشن کے ساتھ زندگی", videoId:"EJ_S5Rjt_iI",
+        awareness:"روزمرہ زندگی اور تعلقات پر ڈپریشن کے اثرات۔",
+        remedies:"سپورٹ، معمول، اور ماہر رہنمائی۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا آگاہی", videoId:"k7bbTCSua8k",
+        awareness:"اسکیزوفرینیا کو سمجھنا اور متاثرین کا تعاون کرنا۔",
+        remedies:"ابتدائی علاج، نفسیاتی بحالی، داغ دھبے ختم کرنا۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا کیا ہے؟", videoId:"H2RXx-H80BU",
+        awareness:"علامات اور ابتدائی اشارے۔",
+        remedies:"جلدی شناخت اور علاج اپنائیں۔" },
+
+      { type:"جسمانی", title:"ہائی بلڈ پریشر (Hypertension)", videoId:"mjTMZ_sm0LQ",
+        awareness:"دباؤ اور اضطراب سے بلڈ پریشر بڑھ سکتا ہے؛ اکثر کیس علامت سے پاک ہوتے ہیں۔",
+        remedies:"ورزش، مناسب غذا، دباؤ کم کرنا اور ادویات اگر ضروری ہوں۔" },
+
+      { type:"جسمانی", title:"دل کی بیماری (کورونری)", videoId:"SaS3kZVIrGk",
+        awareness:"چھاتی میں درد، سانس پھولنا؛ دباؤ خطرہ بڑھاتا ہے۔",
+        remedies:"خطرہ کم کریں (سگریٹ، کولیسٹرول)، ادویات اور معائنہ۔" },
+
+      { type:"جسمانی", title:"ٹائپ 2 ذیابیطس", videoId:"V-1bOCr2XK8",
+        awareness:"بار بار پیشاب، پیاس، تھکن؛ دباؤ شکر پر اثر انداز ہو سکتا ہے۔",
+        remedies:"متوازن غذا، ورزش، نگرانی اور دوائیں جب ضرورت ہو۔" },
+
+      { type:"جسمانی", title:"مائگرین", videoId:"PiTrjxqflLk",
+        awareness:"دباؤ اکثر شدید سر درد کو متحرک کرتا ہے۔",
+        remedies:"روک تھام، طرزِ زندگی میں تبدیلیاں، اور مناسب ادویات۔" }
+    ]
+  },
+
+  /* KASHMIRI translations (Perso-Arabic script approximate) */
+  ks: {
+    siteTitle: "ڈیجیٹل سائیکولوجیکل انٹروینشن — جموں تٙ کشمیر (وسائل)",
+    siteSub: "14 وسائل (10 ذہنی + 4 جسمانی) — ویڈیو تٙ علاقائی مدد",
+    backBtn: "← واپس",
+    searchPlaceholder: "تلاش کرٙ (مثلاً 'ڈپریشن', 'اسٹریس', 'ذیابیطس')",
+    mentalTitle: "🧠 ذہنی صحت",
+    physicalTitle: "💪 جسمانی صحت",
+    footer: "ڈیجیٹل سائیکولوجیکل انٹروینشن — جموں تٙ کشمیر © 2025",
+    cards: [
+      { type:"ذہنی", title:"ڈپریشن", videoId:"P7YGyuZxItY",
+        awareness:"مسلسل اداسی، دلچسپی کم ہونۍ، زندگئ مزو نہ دسنۍ۔",
+        remedies:"تھراپی، سپورٹ، کدؠ وار دوائیں، روزگار روٹین۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا", videoId:"H2RXx-H80BU",
+        awareness:"حسی دھوکہ، غلط یقین، سوچ منظم نہ ہونۍ۔",
+        remedies:"اینٹی سائیکوٹک دوائیں، کونسلنگ، خاندانی حمایت۔" },
+
+      { type:"ذہنی", title:"OCD (وسواسی جبری)", videoId:"4euYnqMWT5w",
+        awareness:"بار بار آن والے خیالات تٙ مجبورانہ عمل۔",
+        remedies:"ERP/CBT، کدؠ وار دوائیں اگر ضرورت ہوو۔" },
+
+      { type:"ذہنی", title:"انزائٹی (پریشانی)", videoId:"BHJJ6-cCPjM",
+        awareness:"بہت فکر، دل کی بھاگدوڑ، بےچینی۔",
+        remedies:"سہل سانس آسن، ریلیکسیشن، تھیراپی، ضرورت پر ادویات۔" },
+
+      { type:"ذہنی", title:"PTSD", videoId:"tX8TgVR33KM",
+        awareness:"ٹرامے پسِ یاد، ڈراؤن خواب، بچاؤ کرنِ رجحان۔",
+        remedies:"ٹراما تھیراپی، سپورٹ گروپس، ہنر سکھان۔" },
+
+      { type:"ذہنی", title:"ڈپریشن - 'بلیک ڈاگ' استعارہ", videoId:"XiCrniLQGYc",
+        awareness:"ڈپریشن چھِ همراه منز محسوس ہونۍ۔",
+        remedies:"مدد لو، گپ کر، تھراپی کابٙت کر۔" },
+
+      { type:"ذہنی", title:"چھپا ہوا ڈپریشن", videoId:"1Yq6W7YAHM4",
+        awareness:"باہر ٹھیک لگٙن مگر اندر دکھ۔",
+        remedies:"دوست یا گھرٙن سان گلاوُن، مشاورت لو۔" },
+
+      { type:"ذہنی", title:"ڈپریشن سان زندگئ", videoId:"EJ_S5Rjt_iI",
+        awareness:"روزمرہ کارُوں تٙ ڈپریشن کہ اثر۔",
+        remedies:"روٹین، سپورٹ، ماہر دیکھ بھال۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا آگاہی", videoId:"k7bbTCSua8k",
+        awareness:"اسکیزوفرینیا سمجھنا تٙ مریضان کی مدد کرن۔",
+        remedies:"جلدی علاج، سماجی حمایت، بدنامی کم کرن۔" },
+
+      { type:"ذہنی", title:"اسکیزوفرینیا کیا ہے؟", videoId:"H2RXx-H80BU",
+        awareness:"علامات تٙ ابتدائی نشانیان۔",
+        remedies:"جلدی پہچان تٙ علاج۔" },
+
+      { type:"جسمانی", title:"ہائی بلڈ پریشر", videoId:"mjTMZ_sm0LQ",
+        awareness:"سٹریس بلڈ پریشر وادھاوٙن۔",
+        remedies:"ورزش، خوراک کنٹرول، اسٹریس کم کرن۔" },
+
+      { type:"جسمانی", title:"دل کی بیماری", videoId:"SaS3kZVIrGk",
+        awareness:"دِل داکھ، سانس پھلنا؛ اسٹریس خطرہ وادھاون۔",
+        remedies:"صحت مند طریقہِ زندگی، دوائیں، چیک-اپس۔" },
+
+      { type:"جسمانی", title:"ٹائپ 2 ذیابیطس", videoId:"V-1bOCr2XK8",
+        awareness:"پانی و پیشاب وادھاون، تھکن؛ سٹریس شوگر متاثر کران۔",
+        remedies:"خوراک، ورزش، دوائیں تٙ نگرانی۔" },
+
+      { type:"جسمانی", title:"مائگرین", videoId:"PiTrjxqflLk",
+        awareness:"سٹریس تٙ سخت سر درد چھی ٹرِگر کران۔",
+        remedies:"پریوینٹو علاج، ٹرِگر مینجمنٹ، مناسب ادویات۔" }
+    ]
+  }
+};
+
+
+/* --------- Rendering & UI logic --------- */
+
+let currentLang = 'en';
+
+const el = {
+  title: document.getElementById('site-title'),
+  sub: document.getElementById('site-sub'),
+  backBtn: document.getElementById('backBtn'),
+  search: document.getElementById('search-bar'),
+  mentalGrid: document.getElementById('mental-grid'),
+  physicalGrid: document.getElementById('physical-grid'),
+  footer: document.getElementById('site-footer'),
+  langBtns: document.querySelectorAll('.lang-btn'),
+  mentalTitleEl: document.querySelector('[data-key="mentalTitle"]'),
+  physicalTitleEl: document.querySelector('[data-key="physicalTitle"]')
+};
+
+function createCardHTML(card, lang) {
+  const vid = card.videoId;
+  const embedSrc = `https://www.youtube.com/embed/${vid}?rel=0`;
+  const thumb = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+  // Regional search query uses card.title in the local language where possible
+  const qHindi = encodeURIComponent(card.title + " हिंदी");
+  const qUrdu = encodeURIComponent(card.title + " اردو");
+  const qKash = encodeURIComponent(card.title + " کشمیر");
+
+  return `
+    <article class="card" data-title="${escapeHtml(card.title).toLowerCase()}">
+      <h3>${escapeHtml(card.title)}</h3>
+      <div class="meta"><div class="type">${escapeHtml(card.type)}</div></div>
+      <div class="video-wrap">
+        <iframe src="${embedSrc}" data-vid="${vid}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen title="${escapeHtml(card.title)}"></iframe>
+
+        <div class="fallback" data-vid="${vid}">
+          <img src="${thumb}" alt="${escapeHtml(card.title)} thumbnail" />
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <a href="https://www.youtube.com/watch?v=${vid}" target="_blank" rel="noopener">Watch on YouTube</a>
+            <a href="https://www.youtube.com/results?search_query=${qHindi}" target="_blank" rel="noopener">Hindi</a>
+            <a href="https://www.youtube.com/results?search_query=${qUrdu}" target="_blank" rel="noopener">Urdu</a>
+            <a href="https://www.youtube.com/results?search_query=${qKash}" target="_blank" rel="noopener">Kashmiri</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text">
+        <strong>${lang === 'en' ? 'Awareness:' : (lang === 'hi' ? 'जागरूकता:' : (lang === 'ur' ? 'احتیاط:' : 'پہچان:'))}</strong>
+        ${escapeHtml(card.awareness)}
+        <br>
+        <strong>${lang === 'en' ? 'Remedies:' : (lang === 'hi' ? 'इलाज/सुझाव:' : (lang === 'ur' ? 'علاج:' : 'علاج/سفارشات:'))}</strong>
+        ${escapeHtml(card.remedies)}
+      </div>
+
+      <div class="regional">
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(card.title + ' हिन्दी')}" target="_blank" rel="noopener">Hindi</a>
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(card.title + ' اردو')}" target="_blank" rel="noopener">Urdu</a>
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(card.title + ' کشمیر')}" target="_blank" rel="noopener">Kashmiri</a>
+      </div>
+    </article>
+  `;
+}
+
+// sanitize for attribute/text contexts
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// render all content for selected language
+function renderLanguage(lang) {
+  currentLang = lang;
+  const t = translations[lang] || translations.en;
+
+  el.title.textContent = t.siteTitle;
+  el.sub.textContent = t.siteSub;
+  el.backBtn.textContent = t.backBtn;
+  el.search.placeholder = t.searchPlaceholder;
+  el.footer.textContent = t.footer;
+  el.mentalTitleEl.textContent = t.mentalTitle;
+  el.physicalTitleEl.textContent = t.physicalTitle;
+
+  // build cards
+  const mentalCards = t.cards.filter(c => c.type.toLowerCase().includes('mental') || c.type === 'Mental' || c.type === 'मानसिक' || c.type === 'ذہنی');
+  const physicalCards = t.cards.filter(c => c.type.toLowerCase().includes('physical') || c.type === 'Physical' || c.type === 'शारीरिक' || c.type === 'جسمانی');
+
+  el.mentalGrid.innerHTML = mentalCards.map(c => createCardHTML(c, lang)).join('');
+  el.physicalGrid.innerHTML = physicalCards.map(c => createCardHTML(c, lang)).join('');
+
+  // after DOM nodes created set up iframe fallbacks
+  setupIframeFallbacks(6000);
+
+  // update active lang button styling
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const l = btn.getAttribute('data-lang');
+    btn.classList.toggle('active', l === lang);
+  });
+}
+
+// Show fallback when iframe load blocked/unavailable
+function setupIframeFallbacks(timeoutMs = 6000) {
+  const frames = document.querySelectorAll('iframe[data-vid]');
+  frames.forEach(iframe => {
+    const vid = iframe.getAttribute('data-vid');
+    const wrap = iframe.closest('.video-wrap');
+    const fallback = wrap.querySelector(`.fallback[data-vid="${vid}"]`);
+    let loaded = false;
+
+    // On successful load -> hide fallback (default hidden)
+    iframe.addEventListener('load', () => {
+      loaded = true;
+      if (fallback) fallback.style.display = 'none';
+      iframe.style.display = 'block';
+    });
+
+    // If not loaded within timeout, show fallback
+    setTimeout(() => {
+      if (!loaded) {
+        if (fallback) fallback.style.display = 'block';
+        iframe.style.display = 'none';
+      }
+    }, timeoutMs);
+
+    // If user clicks fallback image area -> open watch page
+    if (fallback) {
+      fallback.addEventListener('click', (e) => {
+        // open watch page
+        const watchUrl = `https://www.youtube.com/watch?v=${vid}`;
+        window.open(watchUrl, '_blank');
+      });
+    }
+  });
+}
+
+// Search/filter cards (works on visible language)
+function setupSearch() {
+  el.search.addEventListener('input', function() {
+    const q = (this.value || '').trim().toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const text = (card.innerText || '').toLowerCase();
+      card.style.display = text.includes(q) ? 'flex' : 'none';
+    });
+  });
+}
+
+// Language buttons
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.getAttribute('data-lang');
+    renderLanguage(lang);
+    // clear search on language switch for clarity
+    el.search.value = '';
+  });
+});
+
+// initial render
+renderLanguage(currentLang);
+setupSearch();
+
+// Accessibility: Enter key on search scrolls to first visible
+el.search.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const firstVisible = document.querySelector('.grid .card[style*="display: flex"], .grid .card:not([style])');
+    if (firstVisible) firstVisible.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+});
+
+</script>
+</body>
+</html>

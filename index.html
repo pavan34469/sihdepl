@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Psychological Intervention System</title>
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* --------- AUTH PAGE --------- */
+    .auth-container {
+      background-color: #fff;
+      border-radius: 15px;
+      width: 350px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .auth-container h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .auth-container input[type="text"],
+    .auth-container input[type="email"],
+    .auth-container input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .auth-container button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #667eea;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .auth-container button:hover {
+      background-color: #5a67d8;
+    }
+
+    .toggle-link {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+
+    .hidden { display: none; }
+
+    /* --------- DASHBOARD --------- */
+    header {
+      background-color: #fff;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    header button, header select {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #667eea;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    header button:hover, header select:hover {
+      background-color: #5a67d8;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: stretch;
+      padding: 50px 20px;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+    }
+
+    .module {
+      border-radius: 15px;
+      flex: 1 1 250px;
+      min-width: 250px;
+      max-width: 300px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .module i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .module:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+
+    .resources { background: #ff6b6b; }
+    .chatbot { background: #ff9f43; }
+    .counsellors { background: #1dd1a1; }
+    .support { background: #54a0ff; }
+    .admin { background: #5f27cd; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; gap: 10px; }
+      .container { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login/Signup Page -->
+  <div class="auth-container" id="auth-page">
+    <h2 id="form-title">Login</h2>
+    <form id="auth-form">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit" id="auth-btn">Login</button>
+    </form>
+    <div class="toggle-link" id="toggle-link">Don't have an account? Signup</div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard-page" class="hidden">
+    <header>
+      <span id="dashboard-title">Digital Psychological Intervention System</span>
+      <div>
+        <select id="lang-select">
+          <option value="en">English</option>
+          <option value="ks">Kashmiri</option>
+          <option value="ur">Urdu</option>
+          <option value="hi">Hindi</option>
+        </select>
+        <button onclick="logout()" id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Modified here -->
+      <div class="module resources" onclick="openResources()"><i class="fas fa-book"></i><span id="res-text">Resources for Problems</span></div>
+      <div class="module chatbot" onclick="openChatbot()"><i class="fas fa-robot"></i><span id="chat-text">AI-Guided Chatbot</span></div>
+      <div class="module counsellors" onclick="opencounces()"><i class="fas fa-user-md"></i><span id="counsellor-text">Counsellors Booking Hub</span></div>
+      <div class="module support"><i class="fas fa-users"></i><span id="support-text">Support Platform</span></div>
+      <div class="module admin"><i class="fas fa-chart-line"></i><span id="admin-text">Admin Dashboard</span></div>
+    </div>
+
+    <footer id="footer-text">© 2025 Digital Mental Health Platform</footer>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        login: "Login",
+        signup: "Signup",
+        email: "Email",
+        password: "Password",
+        fullname: "Full Name",
+        authBtnLogin: "Login",
+        authBtnSignup: "Signup",
+        toggleToSignup: "Don't have an account? Signup",
+        toggleToLogin: "Already have an account? Login",
+        dashboardTitle: "Digital Psychological Intervention System",
+        logout: "Logout",
+        res: "Resources for Problems",
+        chat: "AI-Guided Chatbot",
+        counsellor: "Counsellors Booking Hub",
+        support: "Support Platform",
+        admin: "Admin Dashboard",
+        footer: "© 2025 Digital Mental Health Platform"
+      },
+      ks: {
+        login: "لاگ اِن",
+        signup: "رجسٹر",
+        email: "ایمیل",
+        password: "پاسورڈ",
+        fullname: "پورا ناو",
+        authBtnLogin: "لاگ اِن",
+        authBtnSignup: "رجسٹر",
+        toggleToSignup: "کھاتہ چھا نئ؟ رجسٹر",
+        toggleToLogin: "کھاتہ چھا؟ لاگ اِن",
+        dashboardTitle: "ڈیجیٹل نفسیاتی نظام",
+        logout: "لاگ آؤٹ",
+        res: "مسئلہ حل ذرائع",
+        chat: "اے آئی چیٹ بوٹ",
+        counsellor: "مشیر بکنگ",
+        support: "سپورٹ پلیٹ فارم",
+        admin: "ایڈمن ڈیش بورڈ",
+        footer: "© 2025 ڈیجیٹل ذہنی صحت پلیٹ فارم"
+      },
+      ur: {
+        login: "لاگ اِن",
+        signup: "سائن اپ",
+        email: "ای میل",
+        password: "پاس ورڈ",
+        fullname: "پورا نام",
+        authBtnLogin: "لاگ اِن",
+        authBtnSignup: "سائن اپ",
+        toggleToSignup: "اکاؤنٹ نہیں ہے؟ سائن اپ کریں",
+        toggleToLogin: "اکاؤنٹ موجود ہے؟ لاگ اِن کریں",
+        dashboardTitle: "ڈیجیٹل نفسیاتی مداخلتی نظام",
+        logout: "لاگ آؤٹ",
+        res: "مسائل کے وسائل",
+        chat: "اے آئی چیٹ بوٹ",
+        counsellor: "کاؤنسلر بکنگ",
+        support: "سپورٹ پلیٹ فارم",
+        admin: "ایڈمن ڈیش بورڈ",
+        footer: "© 2025 ڈیجیٹل ذہنی صحت پلیٹ فارم"
+      },
+      hi: {
+        login: "लॉगिन",
+        signup: "साइन अप",
+        email: "ईमेल",
+        password: "पासवर्ड",
+        fullname: "पूरा नाम",
+        authBtnLogin: "लॉगिन",
+        authBtnSignup: "साइन अप",
+        toggleToSignup: "खाता नहीं है? साइन अप करें",
+        toggleToLogin: "पहले से खाता है? लॉगिन करें",
+        dashboardTitle: "डिजिटल मनोवैज्ञानिक हस्तक्षेप प्रणाली",
+        logout: "लॉगआउट",
+        res: "समस्याओं के संसाधन",
+        chat: "एआई-निर्देशित चैटबॉट",
+        counsellor: "काउंसलर बुकिंग",
+        support: "सहायता मंच",
+        admin: "एडमिन डैशबोर्ड",
+        footer: "© 2025 डिजिटल मानसिक स्वास्थ्य प्लेटफ़ॉर्म"
+      }
+    };
+
+    const formTitle = document.getElementById('form-title');
+    const authForm = document.getElementById('auth-form');
+    const toggleLink = document.getElementById('toggle-link');
+    const authPage = document.getElementById('auth-page');
+    const dashboardPage = document.getElementById('dashboard-page');
+    const langSelect = document.getElementById('lang-select');
+
+    let currentLang = "en";
+
+    function applyTranslations() {
+      const t = translations[currentLang];
+
+      // Auth page
+      formTitle.textContent = t.login;
+      document.querySelector('#auth-form input[type="email"]').placeholder = t.email;
+      document.querySelector('#auth-form input[type="password"]').placeholder = t.password;
+      document.getElementById('auth-btn').textContent = t.authBtnLogin;
+      toggleLink.textContent = t.toggleToSignup;
+
+      // Dashboard
+      document.getElementById('dashboard-title').textContent = t.dashboardTitle;
+      document.getElementById('logout-btn').textContent = t.logout;
+      document.getElementById('res-text').textContent = t.res;
+      document.getElementById('chat-text').textContent = t.chat;
+      document.getElementById('counsellor-text').textContent = t.counsellor;
+      document.getElementById('support-text').textContent = t.support;
+      document.getElementById('admin-text').textContent = t.admin;
+      document.getElementById('footer-text').textContent = t.footer;
+    }
+
+    // Change language
+    langSelect.addEventListener('change', () => {
+      currentLang = langSelect.value;
+      applyTranslations();
+    });
+
+    // Toggle Login/Signup form
+    function toggleForm() {
+      const t = translations[currentLang];
+      if (formTitle.textContent === t.login) {
+        formTitle.textContent = t.signup;
+        authForm.innerHTML = `
+          <input type="text" placeholder="${t.fullname}" required>
+          <input type="email" placeholder="${t.email}" required>
+          <input type="password" placeholder="${t.password}" required>
+          <button type="submit" id="auth-btn">${t.authBtnSignup}</button>
+        `;
+        toggleLink.textContent = t.toggleToLogin;
+      } else {
+        formTitle.textContent = t.login;
+        authForm.innerHTML = `
+          <input type="email" placeholder="${t.email}" required>
+          <input type="password" placeholder="${t.password}" required>
+          <button type="submit" id="auth-btn">${t.authBtnLogin}</button>
+        `;
+        toggleLink.textContent = t.toggleToSignup;
+      }
+    }
+    toggleLink.onclick = toggleForm;
+
+    // Simulate login/signup
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      authPage.classList.add('hidden');
+      dashboardPage.classList.remove('hidden');
+      applyTranslations();
+    });
+
+    // Logout
+    function logout() {
+      dashboardPage.classList.add('hidden');
+      authPage.classList.remove('hidden');
+      applyTranslations();
+    }
+
+    // Open Streamlit bot
+    function openChatbot() {
+      window.open("http://localhost:8501", "_blank");
+    }
+
+    // ✅ New function for Resources
+    function openResources() {
+      window.location.href = "resoruces.html";
+    }
+    function opencounces() {
+      window.location.href = "counselling.html";
+    }
+
+    // Initialize default translations
+    applyTranslations();
+  </script>
+</body>
+</html>
